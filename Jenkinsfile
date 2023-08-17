@@ -10,11 +10,13 @@ pipeline {
                 echo 'Hello'
             }
         }
-      steps {
-          script {
-              def scannerHome = tool 'Sonar-Server'; // Name of the SonarQube Scanner you created in "Global Tool Configuration" section
-              withSonarQubeEnv() {
-                  sh "${scannerHome}/bin/sonar-scanner"
+      stage('SonarQube Analysis') {
+          steps {
+              script {
+                  def scannerHome = tool 'SonarScanner'; // Name of the SonarQube Scanner you created in "Global Tool Configuration" section
+                  withSonarQubeEnv() {
+                      sh "${scannerHome}/bin/sonar-scanner"
+                  }
               }
           }
       }
