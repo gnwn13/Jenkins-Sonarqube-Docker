@@ -10,18 +10,23 @@ pipeline {
                   echo 'Hello'
             }
         }
-      stage('SCM') {
+      stage('Static Code Analysis') {
+          environment {
+            SONAR_URL = "http://10.3.3.98:9000"
+          }
           steps {
-                checkout scm
+            withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_AUTH_TOKEN')]) {
+              sh 'cd Jenkins-Sonarqube-Docker/ && mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
             }
-      }
-      stage('SonarQube Analysis') {
-          steps {
-              def scannerHome = tool 'SonarScanner';
-              withSonarQubeEnv() {
-                  sh "${scannerHome}/bin/sonar-scanner"
-              }
           }
       }
+      // stage('SonarQube Analysis') {
+      //     steps {
+      //         def scannerHome = tool 'SonarScanner';
+      //         withSonarQubeEnv() {
+      //             sh "${scannerHome}/bin/sonar-scanner"
+      //         }
+      //     }
+      // }
   }
 }
