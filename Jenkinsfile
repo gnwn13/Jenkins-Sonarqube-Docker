@@ -37,7 +37,8 @@ pipeline {
       // }
       stage('SonarQube analysis') {
           tools {
-            sonarQube 'SonarQube Scanner 2.15'
+            sonarQube 'SonarQube Scanner for Jenkins 2.15'
+            // sonarQube 'SonarScanner 5.0.1.3006'
           }
           steps {
             withSonarQubeEnv('SonarQube Scanner') {
