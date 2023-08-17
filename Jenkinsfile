@@ -5,17 +5,23 @@ pipeline {
     }
   }
   stages {
-    stage('hello') {
-      echo 'Hello World'
-    }
-    stage('SCM') {
-      checkout scm
-    }
-    stage('SonarQube Analysis') {
-      def scannerHome = tool 'SonarScanner';
-      withSonarQubeEnv() {
-        sh "${scannerHome}/bin/sonar-scanner"
+      stage('hello') {
+          steps {
+                  echo 'Hello'
+            }
+        }
+      stage('SCM') {
+          steps {
+                checkout scm
+            }
       }
-    }
+      stage('SonarQube Analysis') {
+          steps {
+              def scannerHome = tool 'SonarScanner';
+              withSonarQubeEnv() {
+                  sh "${scannerHome}/bin/sonar-scanner"
+              }
+          }
+      }
   }
 }
