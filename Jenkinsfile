@@ -35,17 +35,15 @@ pipeline {
       //       }
       //     }
       // }
-      stages {
       stage('SonarQube analysis') {
-        tools {
-          sonarQube 'SonarQube Scanner 2.15'
-        }
-        steps {
-          withSonarQubeEnv('SonarQube Scanner') {
-            sh 'sonar-scanner'
+          tools {
+            sonarQube 'SonarQube Scanner 2.15'
           }
-        }
+          steps {
+            withSonarQubeEnv('SonarQube Scanner') {
+              sh 'sonar-scanner'
+            }
+          }
       }
-    }
-  }
+   }
 }
