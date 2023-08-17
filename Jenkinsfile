@@ -16,7 +16,7 @@ pipeline {
           }
           steps {
             withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_AUTH_TOKEN')]) {
-              sh 'SonarScanner/bin/sonar-scanner -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}' -Dsonar.projectKey=test-scan-project -Dsonar.projectBaseDir=/var/jenkins_home/workspace/test-project
+              sh 'SonarScanner/bin/sonar-scanner -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL} -Dsonar.projectKey=test-scan-project -Dsonar.projectBaseDir=/var/jenkins_home/workspace/test-project'
             }
           }
       }
